@@ -68,6 +68,22 @@ export const addCustomOrder = () => {
     // Add a timestamp to the order
     newOrder.timestamp = Date.now()
 
+    const foundMetal = [...database.metals].find(metal => metal.id === newOrder.metalId)
+
+    const foundStyle = [...database.styles].find(style => style.id === newOrder.styleId)
+
+    const foundSize = [...database.sizes].find(size => size.id === newOrder.sizeId)
+
+    const totalCost = foundMetal.price + foundSize.price + foundStyle.price
+
+    const costString = totalCost.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })
+
+    newOrder.cost = costString
+
+
     // Add the new order object to custom orders state
     database.customOrders.push(newOrder)
 
