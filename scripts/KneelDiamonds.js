@@ -1,6 +1,8 @@
+import { currentOrderPrice } from "./currentOrderPrice.js"
 import { addCustomOrder } from "./database.js"
 import { DiamondSizes } from "./DiamondSizes.js"
 import { JewelryStyles } from "./JewelryStyles.js"
+import { JewelryTypes } from "./jewelryType.js"
 import { Metals } from "./Metals.js"
 import { Orders } from "./Orders.js"
 
@@ -31,6 +33,14 @@ export const KneelDiamonds = () => {
                 <h2>Styles</h2>
               ${JewelryStyles()}
             </section>
+        </article>
+        <article class="type-current">
+            <div>
+                ${JewelryTypes()}
+            </div>
+            <div class="current-price">
+                ${currentOrderPrice()}
+            </div>
         </article>
 
         <article>

@@ -1,4 +1,4 @@
-import { getStyles, setStyle } from "./database.js"
+import { getStyles, setStyle, getOrderBuilder } from "./database.js"
 
 const styles = getStyles()
 
@@ -12,14 +12,24 @@ document.addEventListener(
 )
 
 export const JewelryStyles = () => {
+
+    const currentPicks = getOrderBuilder()
+
     let html = "<ul>"
 
     // Use .map() for converting objects to <li> elements
     const listItems = styles.map(style => {
-        return `<li>
+        if (currentPicks.styleId === style.id) {
+            return `<li>
+        <input type="radio" name="style" checked="checked" value="${style.id}"/>
+        ${style.style}
+        </li>`
+        } else {
+            return `<li>
         <input type="radio" name="style" value="${style.id}"/>
         ${style.style}
         </li>`
+        }
     })
 
 

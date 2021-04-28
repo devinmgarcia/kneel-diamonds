@@ -10,3 +10,20 @@
     border-radius: 0.5rem;
     box-shadow: 0.25rem 0.25rem 0.5rem rgb(143, 143, 143);
 }
+
+.types {
+    display: flex;
+    margin: 3rem 0 2rem 2rem;
+}
+
+.type-current {
+    display: flex;
+}
+
+.current-price {
+    margin-left: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+}

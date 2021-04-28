@@ -25,6 +25,11 @@ const database = {
         { id: 4, metal: "Platinum", price: 795.45 },
         { id: 5, metal: "Palladium", price: 1241.0 }
     ],
+    types: [
+        { id: 1, name: "Ring", multiplier: 1 },
+        { id: 2, name: "Earring", multiplier: 2 },
+        { id: 3, name: "Necklace", multiplier: 4 }
+    ],
     customOrders: [],
     orderBuilder: {}
 }
@@ -41,20 +46,36 @@ export const getSizes = () => {
     return [...database.sizes]
 }
 
+export const getTypes = () => {
+    return [...database.types]
+}
+
 export const getOrders = () => {
     return [...database.customOrders]
 }
 
+export const getOrderBuilder = () => {
+    return {...database.orderBuilder }
+}
+
 export const setMetal = (id) => {
     database.orderBuilder.metalId = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const setSize = (id) => {
     database.orderBuilder.sizeId = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const setStyle = (id) => {
     database.orderBuilder.styleId = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
+export const setType = (id) => {
+    database.orderBuilder.typeId = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const addCustomOrder = () => {
@@ -74,7 +95,9 @@ export const addCustomOrder = () => {
 
     const foundSize = [...database.sizes].find(size => size.id === newOrder.sizeId)
 
-    const totalCost = foundMetal.price + foundSize.price + foundStyle.price
+    const foundType = [...database.types].find(type => type.id === newOrder.typeId)
+
+    const totalCost = (foundMetal.price + foundSize.price + foundStyle.price) * foundType.multiplier
 
     const costString = totalCost.toLocaleString("en-US", {
         style: "currency",
